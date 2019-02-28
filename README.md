@@ -1,3 +1,14 @@
+# Timi-bot
+
+The goal of this bot is to mock the behaviour of our friend, Timi.
+
+Recommended IDE: **Visual Studio Code**.
+
+Run: `node index.js`
+
+Don't forget to set the TOKEN environment variable!
+The same for  HTTP_PROXY and HTTPS_PROXY in case you are running Timi-bot behind a corporate proxy.
+
 # easy-peasy-bot
 
 ## The story of a (Slack)bot

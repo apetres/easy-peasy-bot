@@ -38,6 +38,7 @@ if (process.env.MONGOLAB_URI) {
     };
 }
 
+
 /**
  * Are being run as an app or a custom integration? The initialization will differ, depending
  */
@@ -85,8 +86,8 @@ controller.on('bot_channel_join', function (bot, message) {
     bot.reply(message, "I'm here!")
 });
 
-controller.hears('hello', 'direct_message', function (bot, message) {
-    bot.reply(message, 'Hello!');
+controller.hears('kicsi jo', 'direct_message', function (bot, message) {
+    bot.reply(message, 'Jol esne egy ' + message.text);
 });
 
 
