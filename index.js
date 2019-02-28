@@ -1,3 +1,5 @@
+
+
 /**
  * A Bot for Slack!
  */
@@ -86,9 +88,18 @@ controller.on('bot_channel_join', function (bot, message) {
     bot.reply(message, "I'm here!")
 });
 
+var request = require("request");
 controller.hears('kicsi jo', 'direct_message', function (bot, message) {
-    bot.reply(message, 'Jol esne egy ' + message.text);
+    var keyword = message.text.replace('kicsi jo ', '');
+    request("http://api.giphy.com/v1/gifs/search?q=" + keyword + "&api_key=dc6zaTOxFJmzC", function (error, response, body) {
+      var data = JSON.parse(body);
+      var randomNumber = Math.floor(Math.random() * data.data.length);
+      var gifUrl = data.data[randomNumber].images.downsized.url;
+      var replyMessage = 'Jol esne egy ' + message.text + '.\n' + gifUrl;
+      bot.reply(message, replyMessage);
+    });
 });
+
 
 
 /**
