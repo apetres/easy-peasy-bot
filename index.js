@@ -89,7 +89,7 @@ controller.on('bot_channel_join', function (bot, message) {
 });
 
 var request = require("request");
-controller.hears('kicsi jo', 'direct_message', function (bot, message) {
+controller.hears('kicsi jo', 'direct_message,direct_mention', function (bot, message) {
     var keyword = message.text.replace('kicsi jo ', '');
     request("http://api.giphy.com/v1/gifs/search?q=" + keyword + "&api_key=dc6zaTOxFJmzC", function (error, response, body) {
       var data = JSON.parse(body);
