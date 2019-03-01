@@ -88,17 +88,29 @@ controller.on('bot_channel_join', function (bot, message) {
     bot.reply(message, "I'm here!")
 });
 
+var YANDEX_API_KEY = process.env.YANDEX_API_KEY;
 var request = require("request");
-controller.hears('kicsi jo', 'direct_message,direct_mention', function (bot, message) {
-    var keyword = message.text.replace('kicsi jo ', '');
-    request("http://api.giphy.com/v1/gifs/search?q=" + keyword + "&api_key=dc6zaTOxFJmzC", function (error, response, body) {
+controller.hears('kicsi jo|kicsi jó', 'direct_message,direct_mention', function (bot, message) {
+    console.log("New message from " + message.user);
+    message.text = message.text.replace('kicsi jo', 'kicsi jó');
+    var keyword = message.text.replace('kicsi jó ', '');
+    console.log('Keyword: ' + keyword);
+    request("https://translate.yandex.net/api/v1.5/tr.json/translate?key=" +YANDEX_API_KEY + "&lang=hu-en&text=" + encodeURIComponent(keyword), function (error, response, body) {
+        var translation = JSON.parse(body).data.text[0];
+        console.log('Translation: ' + translation);
+        replyGif(translation, bot, message);
+    });
+});
+
+var replyGif = function(keyword, bot, message) {
+    request("http://api.giphy.com/v1/gifs/search?q=" + encodeURIComponent(keyword) + "&api_key=dc6zaTOxFJmzC", function (error, response, body) {
       var data = JSON.parse(body);
       var randomNumber = Math.floor(Math.random() * data.data.length);
       var gifUrl = data.data[randomNumber].images.downsized.url;
-      var replyMessage = 'Jol esne egy ' + message.text + '.\n' + gifUrl;
+      var replyMessage = 'Jól esne egy ' + message.text + '!:blush:\n' + gifUrl;
       bot.reply(message, replyMessage);
     });
-});
+}
 
 
 

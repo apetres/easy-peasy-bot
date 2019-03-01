@@ -6,7 +6,7 @@ Recommended IDE: **Visual Studio Code**.
 
 Run: `node index.js`
 
-Don't forget to set the TOKEN environment variable!
+Don't forget to set the TOKEN and YANDEX_API_KEY environment variables!
 The same for  HTTP_PROXY and HTTPS_PROXY in case you are running Timi-bot behind a corporate proxy.
 
 # easy-peasy-bot
