@@ -94,9 +94,10 @@ controller.hears('kicsi jo|kicsi jó', 'direct_message,direct_mention', function
     console.log("New message from " + message.user);
     message.text = message.text.replace('kicsi jo', 'kicsi jó');
     var keyword = message.text.replace('kicsi jó ', '');
+    if (keyword == 'cigike') keyword = 'cigi';
     console.log('Keyword: ' + keyword);
     request("https://translate.yandex.net/api/v1.5/tr.json/translate?key=" +YANDEX_API_KEY + "&lang=hu-en&text=" + encodeURIComponent(keyword), function (error, response, body) {
-        var translation = JSON.parse(body).data.text[0];
+        var translation = JSON.parse(body).text[0];
         console.log('Translation: ' + translation);
         replyGif(translation, bot, message);
     });
